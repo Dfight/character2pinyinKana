@@ -23,6 +23,7 @@ function add_furi_main(style,language,pinyin_type,kana_type,separate_type,subs)
         aegisub.progress.set((i-1) / #subs * 100)
         local l = subs[i]
         if l.class == "dialogue" and l.style == style then
+	if l.effect=="" or l.effect=="karaoke" then
             lineKara = {}
 			for kDur,sylText in string.gmatch(l.text,"{\\[kK](%d+)}([^{]+)") do
 			    lineKara[#lineKara+1] = {sylText=sylText,kDur=kDur}
@@ -46,6 +47,7 @@ function add_furi_main(style,language,pinyin_type,kana_type,separate_type,subs)
             l.text = str
             subs[i] = l
         end
+	end
     end
     aegisub.progress.set(100)
 end
